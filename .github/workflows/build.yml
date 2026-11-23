@@ -26,13 +26,13 @@ env:
   PLUGIN_NAME: Lidarr.Plugin.Slskd
   PLUGIN_VERSION: 1.1.7.0
   MINIMUM_LIDARR_VERSION: 3.1.5.5066
-  DOTNET_VERSION: 8.0.421
+  DOTNET_VERSION: 10.0.115
 
 jobs:
   build:
     strategy:
       matrix:
-        framework: [ net8.0 ]
+        framework: [ net10.0 ]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -77,10 +77,10 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - name: Download Artifact (net8.0)
+      - name: Download Artifact (net10.0)
         uses: actions/download-artifact@v8
         with:
-          name: net8.0
+          name: net10.0
       - name: Compose release notes
         run: |
           previous=$(git for-each-ref --sort=-v:refname --count=1 --format='%(refname:short)' 'refs/tags/v*')
