@@ -50,6 +50,7 @@ namespace NzbDrone.Core.Download.Clients.Slskd
         // Core Public Methods
         public SlskdOptions GetOptions(SlskdSettings settings)
         {
+            _logger.Debug("GetOptions");
             if (settings == null)
             {
                 throw new ArgumentNullException(nameof(settings));
@@ -60,6 +61,7 @@ namespace NzbDrone.Core.Download.Clients.Slskd
 
         public Application GetApplication(SlskdSettings settings)
         {
+            _logger.Debug("GetApplication");
             if (settings == null)
             {
                 throw new ArgumentNullException(nameof(settings));
@@ -70,6 +72,7 @@ namespace NzbDrone.Core.Download.Clients.Slskd
 
         public List<DownloadClientItem> GetQueue(SlskdSettings settings)
         {
+            _logger.Debug("GetQueue");
             if (settings == null)
             {
                 throw new ArgumentNullException(nameof(settings));
@@ -275,6 +278,7 @@ namespace NzbDrone.Core.Download.Clients.Slskd
 
         public string Download(string searchId, string username, string downloadPath, string identifier, string albumTitle, SlskdSettings settings)
         {
+            _logger.Debug("Download searchId={searchId} username={username} downloadPath={downloadPath}, identifier={identifier}, albumTitle={albumTitle}", searchId, username, downloadPath, identifier, albumTitle);
             if (settings == null)
             {
                 throw new ArgumentNullException(nameof(settings));
@@ -326,6 +330,7 @@ namespace NzbDrone.Core.Download.Clients.Slskd
 
         public void RemoveFromQueue(string downloadId, bool deleteData, SlskdSettings settings)
         {
+            _logger.Debug("RemoveFromQueue downloadId={downloadId} deleteData={deleteData}", downloadId, deleteData);
             if (settings == null)
             {
                 throw new ArgumentNullException(nameof(settings));
@@ -718,7 +723,10 @@ namespace NzbDrone.Core.Download.Clients.Slskd
         private T ExecuteGet<T>(HttpRequestBuilder requestBuilder)
             where T : new()
         {
-            var response = _httpClient.Get(requestBuilder.Build());
+            var request = requestBuilder.Build();
+            _logger.Debug("ExecuteGet: {Method} {URL}", request.Method, request.Url);
+            var response = _httpClient.Get(request);
+            _logger.Debug("Response: {Content}", response.Content);
             return Json.Deserialize<T>(response.Content);
         }
 
