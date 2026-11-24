@@ -1,5 +1,7 @@
 # Slskd Plugin for Lidarr
 
+FORKED FROM allquiet-hub [https://github.com/allquiet-hub/Lidarr.Plugin.Slskd] THANK YOU
+
 Adds [Soulseek](https://www.slsknet.org/) to Lidarr through [slskd](https://github.com/slskd/slskd).
 
 The plugin registers **both halves** of the pipeline: an indexer that searches the Soulseek network
@@ -25,7 +27,7 @@ authentication enabled either way.
 ## Installation
 
 1. In Lidarr, go to **System > Plugins**.
-2. Paste `https://github.com/allquiet-hub/Lidarr.Plugin.Slskd` into the GitHub URL field and press
+2. Paste `https://github.com/lukasbaxter/Lidarr.Plugin.Slskd` into the GitHub URL field and press
    **Install**.
 3. Restart Lidarr when prompted.
 
