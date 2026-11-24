@@ -83,6 +83,7 @@ namespace NzbDrone.Core.Indexers.Slskd
         /// slots, which is before its responses have been read.</param>
         public SlskdParser(ProviderDefinition definition, SlskdIndexerSettings settings, TimeSpan rateLimit, IHttpClient httpClient, Logger logger, Action searchEnded = null)
         {
+            _logger.Debug("SlskdParser");
             _searchEnded = searchEnded;
             _definition = definition ?? throw new ArgumentNullException(nameof(definition));
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -97,6 +98,7 @@ namespace NzbDrone.Core.Indexers.Slskd
 
         public IList<ReleaseInfo> ParseResponse(IndexerResponse indexerResponse)
         {
+            _logger.Debug("ParseResponse");
             if (indexerResponse?.HttpResponse == null)
             {
                 throw new ArgumentNullException(nameof(indexerResponse));

@@ -137,6 +137,7 @@ namespace NzbDrone.Core.Indexers.Slskd
 
         public SlskdRequestGenerator(Logger logger, SlskdIndexerSettings settings)
         {
+            _logger.Debug("SlskdRequestGenerator");
             _logger = logger;
             Settings = settings;
             _requestBuilder = CreateRequestBuilder(settings);
@@ -149,11 +150,13 @@ namespace NzbDrone.Core.Indexers.Slskd
         /// </summary>
         public IndexerPageableRequestChain GetRecentRequests()
         {
+            _logger.Debug("GetRecentRequests");
             return new IndexerPageableRequestChain();
         }
 
         public IndexerPageableRequestChain GetSearchRequests(AlbumSearchCriteria searchCriteria)
         {
+            _logger.Debug("GetSearchRequests");
             if (searchCriteria == null)
             {
                 throw new ArgumentNullException(nameof(searchCriteria));
@@ -223,6 +226,7 @@ namespace NzbDrone.Core.Indexers.Slskd
         /// </summary>
         private IEnumerable<QueryTier> BuildQueryTiers(AlbumSearchCriteria searchCriteria)
         {
+            _logger.Debug("BuildQueryTiers");
             var album = CollapseWhitespace(searchCriteria.AlbumQuery.IsNullOrWhiteSpace()
                 ? searchCriteria.CleanAlbumQuery
                 : searchCriteria.AlbumQuery);

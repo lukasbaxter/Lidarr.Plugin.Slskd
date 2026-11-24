@@ -54,21 +54,25 @@ namespace NzbDrone.Core.Indexers.Slskd
             Logger logger)
             : base(httpClient, indexerStatusService, configService, parsingService, logger)
         {
+            _logger.Debug("Slskd (indexer)");
             _slskdProxy = slskdProxy;
         }
 
         public override IIndexerRequestGenerator GetRequestGenerator()
         {
+            _logger.Debug("GetRequestGenerator");
             return new SlskdRequestGenerator(_logger, Settings);
         }
 
         public override IParseIndexerResponse GetParser()
         {
+            _logger.Debug("GetParser");
             return CreateParser(null);
         }
 
         private SlskdParser CreateParser(Action searchEnded)
         {
+            _logger.Debug("CreateParser");
             return new SlskdParser(Definition, Settings, RateLimit, _httpClient, _logger, searchEnded);
         }
 
@@ -102,6 +106,7 @@ namespace NzbDrone.Core.Indexers.Slskd
         /// </summary>
         protected override async Task<IList<ReleaseInfo>> FetchReleases(Func<IIndexerRequestGenerator, IndexerPageableRequestChain> pageableRequestChainSelector, bool isRecent = false)
         {
+            _logger.Debug("FetchReleases");
             var releases = new List<ReleaseInfo>();
             var foundAlbumIds = new HashSet<int>();
             var foundUntagged = false;
@@ -113,6 +118,7 @@ namespace NzbDrone.Core.Indexers.Slskd
 
                 for (var i = 0; i < chain.Tiers; i++)
                 {
+                    _logger.Debug("FetchReleases tier {tier}", i);
                     var tier = chain.GetTier(i).SelectMany(pageable => pageable).ToList();
                     var requests = tier.Where(r => IsStillSearched(r, foundAlbumIds, foundUntagged)).ToList();
 
